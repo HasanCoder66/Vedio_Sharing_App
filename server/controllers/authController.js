@@ -1,28 +1,43 @@
 import mongoose from "mongoose"
+import bcryptjs from "bcryptjs"
+import jwt from "jsonwebtoken"
 import User from '../models/userSchema.js'
-export const register = async (req , res) => {
+import { createError } from "../routes/error.js";
+
+
+export const register = async (req, res, next) => {
     try {
-        const newUser = new User ({
-            userName : req.body.name,
-            email : req.body.email,
-            password : req.body.password
-        })
-        
+        const salt = bcryptjs.genSaltSync(10);
+        const hash = bcryptjs.hashSync(req.body.password, salt);
+        const newUser = new User({ ...req.body, password : hash})
+
+        await newUser.save()
+        res.status(200).json('User signup successfully')
+
     } catch (error) {
-        
+       next(error)
     }
-    // if(req.body.userId === req.params.id )
+}
+
+export const login = async (req, res, next) => {
+    try {
+       const user = await User.findOne({name : req.body.name})
+       if(!user) return next(createError(404, 'user not found sorry!'))
+
+       const isCorrect = await bcryptjs.compare(req.body.password , user.password)
+       if(!isCorrect) return next(createError(400, 'wrong Credientials!'))
+
+       const {password, ...others} = user._doc  
+       const token = jwt.sign({id : user._id  }, process.env.JWT)
+
+       res.cookie("access_token", token,{
+        httpOnly : true,
+       }).status(200).json(others)
+
+    } catch (error) {
+       next(error)
+    }
 }
 
 
 
-export const login = (req , res) => {
-    // if(req.body.userId === req.params.id )
-    // const user = new User.findBy
-}
-
-
-export const google = (req , res) => {
-    // if(req.body.userId === req.params.id )
-    // const user = new User.findBy
-}
