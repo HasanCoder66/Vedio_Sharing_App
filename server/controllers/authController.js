@@ -2,9 +2,13 @@ import mongoose from "mongoose"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import User from '../models/userSchema.js'
-import { createError } from "../routes/error.js";
+import { createError } from "../error.js";
 
 
+
+
+// register
+// localhost:8000/auth/register
 export const register = async (req, res, next) => {
     try {
         const salt = bcryptjs.genSaltSync(10);
@@ -19,6 +23,10 @@ export const register = async (req, res, next) => {
     }
 }
 
+
+
+// login
+// localhost:8000/auth/register
 export const login = async (req, res, next) => {
     try {
        const user = await User.findOne({name : req.body.name})

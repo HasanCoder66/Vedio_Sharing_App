@@ -17,8 +17,8 @@ app.use(cookieParser())
 app.use(express.json())
 app.use('/auth', authRouter)
 app.use('/api', userRouter)
-app.use('/api', commentRouter)
 app.use('/api', videoRouter)
+app.use('/api', commentRouter)
 
 app.use((err, req, res , next) => {
     const status = err.status || 500;
