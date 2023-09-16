@@ -74,7 +74,7 @@ export const getVideo = async (req, res, next) => {
 
 export const viewVideo = async (req, res, next) => {
     try {
-         await Video.findById(req.params.id,{
+         await Video.findByIdAndUpdate  (req.params.id,{
             $inc : {views : 1} 
          })
         res.status(200).json("the view has been increased")
@@ -109,17 +109,42 @@ export const trendVideo = async (req, res, next) => {
 
 
 
-export const subcribeVideo = async (req, res, next) => {
+export const subVideo = async (req, res, next) => {
     try {
-        const user = await User.findById(req.user.id)
+        const user = await User.findByIdAndUpdate(req.user.id)
         const SubscribedChannels = user.subscribedUsers
 
-        const list = Promise.all(
-            SubscribedChannels.map((channelId)=>{
+        const list = await Promise.all(
+            SubscribedChannels.map((channelId) =>  {
                 return Video.find({userId : channelId})
             })
         )
-        res.status(200).json(list)
+        res.status(200).json(list.flat().sort( (a,b) => b.createdAt - a.createdAt))
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+
+export const tagsVideo  = async (req, res, next) => {
+    const tags = req.query.tags.split(",")
+    // console.log(tag)
+    try {
+        const videos = await Video.find({tags : { $in : tags }}).limit(20)
+        res.status(200).json(videos)
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+
+export const searchVideo  = async (req, res, next) => {
+    const query = req.query.q
+    try {
+        const videos = await Video.find({title : { $regex : query , $options : "i"}}).limit(40)
+        res.status(200).json(videos)
     } catch (error) {
         next(error)
     }

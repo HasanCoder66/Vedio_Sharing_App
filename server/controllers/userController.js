@@ -54,7 +54,7 @@ export const getUser = async (req, res, next) => {
 // localhost:8000:api/find/:id
 export const subscribeUser = async (req, res, next) => {
   try {
-    await User.findById(req.user.id,{
+    await User.findByIdAndUpdate(req.user.id,{
       $push :{subscribedUsers: req.params.id},
     });
     await User.findByIdAndUpdate(req.params.id,{
@@ -68,10 +68,10 @@ export const subscribeUser = async (req, res, next) => {
 
 
 // unSubscribe a user 
-// localhost:8000:api/unsub/:id
+// localhost:8000:user/unsub/:id
 export const unSubscribeUser = async (req, res, next) => {
   try {
-    await User.findById(req.user.id,{
+    await User.findByIdAndUpdate(req.user.id,{
       $pull :{subscribedUsers: req.params.id},
     });
     await User.findByIdAndUpdate(req.params.id,{

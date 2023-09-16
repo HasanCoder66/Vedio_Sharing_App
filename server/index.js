@@ -16,8 +16,8 @@ const port = 8000
 app.use(cookieParser())
 app.use(express.json())
 app.use('/auth', authRouter)
-app.use('/api', userRouter)
-app.use('/api', videoRouter)
+app.use('/user', userRouter)
+app.use('/ved', videoRouter)
 app.use('/api', commentRouter)
 
 app.use((err, req, res , next) => {
