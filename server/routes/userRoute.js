@@ -21,9 +21,11 @@ userRouter.delete('/:id', verifyToken, deleteUser)
 userRouter.get('/find/:id', getUser)
 
 // like a video
+
 userRouter.put('/like/:videoId', verifyToken, likeVideo)
 
 // dislike a video
+
 userRouter.put('/dislike/:videoId', verifyToken, dislikeVideo)  
 
 // subscribe a user 

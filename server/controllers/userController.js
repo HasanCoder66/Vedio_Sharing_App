@@ -1,5 +1,6 @@
 import { createError } from "../error.js"
 import User from "../models/userSchema.js"
+import Video from "../models/videoSchema.js"
 
 
 
@@ -87,8 +88,14 @@ export const unSubscribeUser = async (req, res, next) => {
 
 
 export const likeVideo = async (req, res, next) => {
+  const id = req.user.id
+  const videoId = req.params.videoId
   try {
-
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet:{likes:id},
+      $pull:{dislike:id}
+    })
+    res.status(200).json('The video has been liked')
   } catch (error) {
     next(error)
   }
@@ -97,8 +104,14 @@ export const likeVideo = async (req, res, next) => {
 
 
 export const dislikeVideo = async (req, res, next) => {
+  const id = req.user.id
+  const videoId = req.params.videoId
   try {
-
+    await Video.findByIdAndUpdate(videoId, {
+      $addToSet :  {dislikes: id},
+      $pull : { likes:id   }
+    })
+    res.status(200).json('The video has been disliked')
   } catch (error) {
     next(error)
   }
