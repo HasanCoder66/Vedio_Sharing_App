@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import styled, { ThemeProvider } from "styled-components";
+import Menu from "./components/Menu";
+import Navbar from "./components/Navbar";
+import { darkTheme, lightTheme } from "./components/utils/Theme";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { Home } from '@mui/icons-material';
+import Home from "./pages/Home";
+import Video from "./pages/Video";
+import Signin from './pages/Signin';
 
+
+const Container = styled.div`
+  display: flex;
+`;
+const Main = styled.div`
+  flex: 7;
+  background-color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
+`;
+const Wrapper = styled.div`
+padding : 22px 96px
+`;
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Container>
+        <BrowserRouter>
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Main>
+            <Navbar />
+            <Wrapper>
+              <Routes>
+                <Route path="/">
+                  <Route index element={<Home />} />
+                  <Route path='/signin' element={<Signin />} />
+                   <Route path="video">
+                    <Route path=":id" element={<Video />} />
+                  </Route>
+                </Route>
+              </Routes>
+            </Wrapper>
+          </Main>
+        </BrowserRouter>
+      </Container>
+    </ThemeProvider>
   );
 }
 
