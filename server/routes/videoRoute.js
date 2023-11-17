@@ -10,7 +10,7 @@ const videoRouter = express.Router()
 
 // addVedio api 
 // localhost:8000/api/video
-videoRouter.post('/video', verifyToken, addVideo)
+videoRouter.post('/addvideo', verifyToken, addVideo)
 
 
 // updateVedio api 

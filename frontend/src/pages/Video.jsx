@@ -110,7 +110,7 @@ function Video() {
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
+          {/* <iframe
             width="100%"
             height="520"
             src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
@@ -118,7 +118,8 @@ function Video() {
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-          ></iframe>
+          ></iframe> */}
+          <iframe width="100%" height="520" src="https://www.youtube.com/embed/CCF-xV3RSSs?si=wRnoe3uXKDIbv2Mv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </VideoWrapper>
         <Title> Rest Videos</Title>
         <Details>

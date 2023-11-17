@@ -6,19 +6,20 @@ import userRouter from './routes/userRoute.js'
 import commentRouter from './routes/commentRoute.js'
 import videoRouter from './routes/videoRoute.js'
 import cookieParser from "cookie-parser"
-
-dotenv.config()
+import cors from 'cors'
 
 const app = express()
 const port = 8000
+dotenv.config()
 
 // MIDDLEWARES
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
-app.use('/auth', authRouter)
-app.use('/user', userRouter)
-app.use('/video', videoRouter)
-app.use('/api', commentRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
+app.use('/api/video', videoRouter)
+app.use('/api/comment', commentRouter)
 
 app.use((err, req, res , next) => {
     const status = err.status || 500;
@@ -45,3 +46,4 @@ app.listen( port , () => {
     connect()
     console.log(`server listen on port ${port}`)
 })
+

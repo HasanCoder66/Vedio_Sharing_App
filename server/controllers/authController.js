@@ -16,7 +16,7 @@ export const register = async (req, res, next) => {
         const newUser = new User({ ...req.body, password : hash})
 
         await newUser.save()
-        res.status(200).json('User signup successfully')
+        res.status(200).json('User signup successfully' )
 
     } catch (error) {
        next(error)
