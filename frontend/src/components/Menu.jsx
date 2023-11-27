@@ -19,17 +19,15 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
 
-
-
 const Container = styled.div`
   flex: 1;
-  background-color: ${({theme}) => theme.bg};
-  height: 145vh;
-  color: ${({theme}) => theme.text};
+  background-color: ${({ theme }) => theme.bg};
+  height: 100vh;
+  color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
   top: 0;
-
+  overflow-y: scroll;
 `;
 
 const Wrapper = styled.div`
@@ -87,28 +85,40 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
-function Menu({setDarkMode , darkMode}) {
+function Menu({ setDarkMode, darkMode }) {
   return (
     <Container>
       <Wrapper>
-      <Link to='/video/test' style={{textDecoration:'none' , color:'inherit'}}>
-        <Logo>
-          <Img src={logo} alt="logo is here" />
-          TechTube
-        </Logo>
+        <Link
+          to="/video/test"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Logo>
+            <Img src={logo} alt="logo is here" />
+            TechTube
+          </Logo>
         </Link>
         <Item>
           <HomeIcon />
           Home
         </Item>
-        <Item>
-          <ExploreOutlinedIcon />
-          Explore
-        </Item>
-        <Item>
-          <SubscriptionsOutlinedIcon />
-          Subscriptions
-        </Item>
+        <Link
+          to="/trend"
+          style={{ textDecoration: "none", color: "inherit" }}  >
+          <Item>
+            <ExploreOutlinedIcon />
+            Explore
+          </Item>
+        </Link>
+        <Link
+          to="/subscription"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Item>
+            <SubscriptionsOutlinedIcon />
+            Subscriptions
+          </Item>
+        </Link>
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />
@@ -169,7 +179,7 @@ function Menu({setDarkMode , darkMode}) {
         </Item>
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
-            {darkMode ? 'Light' : 'Dark'} mode
+          {darkMode ? "Light" : "Dark"} mode
         </Item>
       </Wrapper>
     </Container>
@@ -177,7 +187,5 @@ function Menu({setDarkMode , darkMode}) {
 }
 
 export default Menu;
-
-
 
 //   `;
