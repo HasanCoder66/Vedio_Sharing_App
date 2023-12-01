@@ -163,7 +163,7 @@ function Video() {
         <Hr/>
         <Comments/>
       </Content>
-      <Recommendation>
+      {/* <Recommendation>
         <Card type='sm'/>
         <Card type='sm'/>
         <Card type='sm'/>
@@ -174,7 +174,7 @@ function Video() {
         <Card type='sm'/>
         <Card type='sm'/>
         <Card type='sm'/>
-      </Recommendation>
+      </Recommendation> */}
     </Container>
   );
 }

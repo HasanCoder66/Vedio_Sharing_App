@@ -58,41 +58,42 @@ const Info = styled.div`
 `;
 
 function Card({ type, video }) {
-  console.log(type);
-  console.log(video.userId);
+  // console.log(type);
+  // console.log(video.userId);
   const [channel, setChannel] = useState({});
-
-  useEffect(() => {
-    const fetchChannel = async () => {
-      try {
-        if (video && video.userId) {
-          const res = await axios.get(`/users/find/${video.userId}`);
-          setChannel(res.data);
-          // setLoading(false);
-        }
-      } catch (error) {
-        console.log(error.message, "error arha hai");
-        // setLoading(false);
-      }
-    };
-
-    fetchChannel();
-  }, [video.userId]);
 
   // useEffect(() => {
   //   const fetchChannel = async () => {
-  //     const res = await axios.get(`/users/find/${video.userId}`);
-  //     // setChannel(res.data);
-  //     console.log(res.data)
+  //     try {
+  //       if (video && video.userId) {
+  //         const res = await axios.get(`/users/find/${video.userId}`);
+  //         setChannel(res.data);
+  //         // setLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.log(error.message, "error arha hai");
+  //       // setLoading(false);
+  //     }
   //   };
+
   //   fetchChannel();
   // }, [video.userId]);
+
+  useEffect(() => {
+    const fetchChannel = async () => {
+      const res = await axios.get(`/user/find/${video.userId}`);
+      console.log(res.data)
+      setChannel(res.data);
+    };
+    fetchChannel();
+  }, [video.userId]);
 
 
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container type={type}>
-        <Image type={type} src={video.imgUrl} alt="TechTube" />
+        <Image type={type} src={video.imgUrl} 
+        alt="TechTube" />
 
         <Details type={type}>
           <ChannelImage
