@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 function Home({type}) {
-  console.log(type)
+  // console.log(type)
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Home({type}) {
   return (
     <Container>
       {videos.map((video)=> (
-        <Card key={'video_id'} video={video}/>      
+        <Card key={'video._id'} video={video}/>      
         ))}
     </Container>
   );

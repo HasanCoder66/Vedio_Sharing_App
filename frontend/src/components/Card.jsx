@@ -97,8 +97,8 @@ function Card({ type, video }) {
         <Details type={type}>
           <ChannelImage
             type={type}
-            src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
-            // src={channel.img}
+            // src="https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg"
+            src={channel.img}
             alt="TechTube"
           />
           <Texts>

@@ -103,7 +103,7 @@ function Menu({ setDarkMode, darkMode }) {
           Home
         </Item>
         <Link
-          to="/trends"
+          to="trends"
           style={{ textDecoration: "none", color: "inherit" }}  >
           <Item>
             <ExploreOutlinedIcon />

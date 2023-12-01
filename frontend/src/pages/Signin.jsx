@@ -1,5 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
+import axios from "axios";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -63,33 +64,62 @@ const Link = styled.span`
   margin-left: 30px;
 `;
 
-
-
 function Signin() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/auth/register", { name, password });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Container>
-        <Wrapper>
-            <Title>Signin</Title>
-            <SubTitle>to continue to TechTube</SubTitle>
-            <Input placeholder='Username' />
-            <Input type='password' placeholder='Password' />
-            <Button>Sign in</Button>
-            <Title>OR</Title>
-            <Input placeholder='Username' />
-            <Input type='email' placeholder='Email' />
-            <Input type='password' placeholder='Password' />
-            <Button>Sign up</Button>
-        </Wrapper>
-        <More>
-            English (USA)
-            <Links>
-            <Link>Help</Link>
-            <Link>Privacy</Link>
-            <Link>Terms</Link>
-            </Links>
-        </More>
+      <Wrapper>
+        <Title >Signin</Title>
+        <SubTitle>to continue to TechTube</SubTitle>
+        <Input
+          placeholder="Username"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={handleLogin}>Sign in</Button>
+        <Title>OR</Title>
+        <Input
+          placeholder="Username"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button>Sign up</Button>
+      </Wrapper>
+      <More>
+        English (USA)
+        <Links>
+          <Link>Help</Link>
+          <Link>Privacy</Link>
+          <Link>Terms</Link>
+        </Links>
+      </More>
     </Container>
-  )
+  );
 }
 
-export default Signin
+export default Signin;
