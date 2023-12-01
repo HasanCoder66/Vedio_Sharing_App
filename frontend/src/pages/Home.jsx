@@ -10,12 +10,12 @@ const Container = styled.div`
 `;
 
 function Home({type}) {
+  console.log(type)
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`video/${type}`);
-      // console.log(res)
+      const res = await axios.get(`/video/${type}`);
       setVideos(res.data);
     };
     fetchVideos()
@@ -23,10 +23,8 @@ function Home({type}) {
   return (
     <Container>
       {videos.map((video)=> (
-
         <Card key={'video_id'} video={video}/>      
         ))}
-        {/* <Card />      */}
     </Container>
   );
 }

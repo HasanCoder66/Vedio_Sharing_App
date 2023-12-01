@@ -58,6 +58,8 @@ const Info = styled.div`
 `;
 
 function Card({type , video}) {
+  // console.log(type)
+  // console.log(video)
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
