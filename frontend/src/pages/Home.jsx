@@ -20,6 +20,8 @@ function Home({type}) {
     };
     fetchVideos()
   }, [type]);
+
+
   return (
     <Container>
       {videos.map((video)=> (

@@ -35,7 +35,7 @@ videoRouter.get('/view/:id', viewVideo)
 
 // trendVedio api 
 // localhost:8000/ved/trendVedio/:id
-videoRouter.get('/trend/:id', trendVideo)
+videoRouter.get('/trend', trendVideo)
 
 
 // randomVedio api 
