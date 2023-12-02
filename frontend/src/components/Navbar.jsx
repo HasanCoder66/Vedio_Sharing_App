@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components"; 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchIcon from '@mui/icons-material/Search';
+import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { current } from '@reduxjs/toolkit';
@@ -56,10 +57,26 @@ const Button = styled.button`
   gap: 5px;
 `;
 
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+`;
+
+const Avatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #999;
+`;
+
 
 
 function Navbar() {
-  const {currentUser} = useSelector((state) => state.user)
+  const {currentUser} = useSelector((state) => console.log(state))
+  console.log(currentUser)
   return (
     <Container>
         <Wrapper>
