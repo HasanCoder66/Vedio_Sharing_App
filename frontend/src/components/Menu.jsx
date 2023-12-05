@@ -18,6 +18,7 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   flex: 1;
@@ -86,6 +87,7 @@ const Title = styled.h2`
 `;
 
 function Menu({ setDarkMode, darkMode }) {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Container>
       <Wrapper>
@@ -102,9 +104,7 @@ function Menu({ setDarkMode, darkMode }) {
           <HomeIcon />
           Home
         </Item>
-        <Link
-          to="trends"
-          style={{ textDecoration: "none", color: "inherit" }}  >
+        <Link to="trends" style={{ textDecoration: "none", color: "inherit" }}>
           <Item>
             <ExploreOutlinedIcon />
             Explore
@@ -129,16 +129,22 @@ function Menu({ setDarkMode, darkMode }) {
           History
         </Item>
         <Hr />
-        <Login>
-          Sign in to like videos, comment, and subscribe.
-          <Link to="signin" style={{ textDecoration: "none" }}>
-            <Button>
-              <AccountCircleOutlinedIcon />
-              SIGN IN
-            </Button>
-          </Link>
-        </Login>
-        <Hr />
+
+        {!currentUser && (
+          <>
+            {" "}
+            <Login>
+              Sign in to like videos, comment, and subscribe.
+              <Link to="signin" style={{ textDecoration: "none" }}>
+                <Button>
+                  <AccountCircleOutlinedIcon />
+                  SIGN IN
+                </Button>
+              </Link>
+            </Login>
+            <Hr />
+          </>
+        )}
         <Title>EVER BEST TECHTUBE</Title>
         <Item>
           <LibraryMusicOutlinedIcon />
