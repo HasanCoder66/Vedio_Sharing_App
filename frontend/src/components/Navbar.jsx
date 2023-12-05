@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { current } from '@reduxjs/toolkit';
+// import { current } from '@reduxjs/toolkit';
 
 const Container = styled.div`
   position: sticky;
@@ -77,7 +77,7 @@ const Avatar = styled.img`
 function Navbar() {
   const {currentUser} = useSelector(state => state.user)
 
-  console.log(currentUser)
+  // console.log(currentUser)
   return (
     <Container>
         <Wrapper>
@@ -87,7 +87,7 @@ function Navbar() {
             </Search>
             {currentUser ? <User>
               <VideoCallOutlinedIcon />
-              <Avatar />
+              <Avatar src={currentUser.img} />
               {currentUser.name}
             </User> 
             : <Link to='/signin' style={{textDecoration: 'none'}} >

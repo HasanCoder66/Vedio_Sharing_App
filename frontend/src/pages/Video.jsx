@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
@@ -7,6 +7,11 @@ import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 // import { ThumbUpOffAltOutlined } from "@mui/icons-material";
 import Comments from "../components/Comments";
 import Card from '../components/Card'
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import {fetchSuccess , fetchStart , fetchFailure} from '../components/redux/videoSlices'
+import {format} from 'timeago.js'
 
 const Container = styled.div`
   display: flex;
@@ -105,7 +110,38 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
-function Video() {
+const Video = () => {
+
+  const [channel, setChannel] = useState({});  
+
+  const { currentUser } = useSelector((state) => state.user);
+  const { currentVideo } = useSelector((state) => state.video);
+
+  console.log(currentUser)
+  console.log(currentVideo)
+
+  const dispatch = useDispatch();
+
+  const path = useLocation().pathname.split('/')[2]
+  // console.log(path)
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videoRes = await axios.get(`/video/find/${path}`);
+        const channelRes = await axios.get(
+          `/user/find/${videoRes.data.userId}`
+        );
+
+        console.log(videoRes)
+        console.log(channelRes)
+        setChannel(channelRes.data);
+        dispatch(fetchSuccess(videoRes.data));
+      } catch (err) {}
+    };
+    fetchData();
+  }, [path, dispatch]);
   return (
     <Container>
       <Content>
@@ -121,13 +157,13 @@ function Video() {
           ></iframe> */}
           <iframe width="100%" height="520" src="https://www.youtube.com/embed/CCF-xV3RSSs?si=wRnoe3uXKDIbv2Mv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </VideoWrapper>
-        <Title> Rest Videos</Title>
+        {/* <Title> { currentVideo.title || 'hasan'} </Title> */}
         <Details>
-          <Info>124125 views 16-November-2023</Info>
+          {/* <Info> {currentVideo.views || '1100 views'} ||  {format(currentVideo.createdAt)}  </Info> */}
           <Buttons>
             <Button>
               <ThumbUpOutlinedIcon />
-              123
+              {/* {currentVideo.likes?.length || 112} */}
             </Button>
             <Button>
               <ThumbDownOffAltOutlinedIcon />
@@ -146,15 +182,12 @@ function Video() {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://scontent.fkhi4-3.fna.fbcdn.net/v/t39.30808-6/344859260_9764027536941505_5188833060278820647_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeH7vxBxRC8BIXXDfKxmKp_QIQqlHeM23VkhCqUd4zbdWUQP10T73idj9leNJ4HhuNE3NEJ2L2biQphwS3SpwqfO&_nc_ohc=3TM3CYEXFkkAX-funxn&_nc_oc=AQnOQI5daeQ2P505wzkCi-c2KshZsL6ZngBHzWyMz9h6XsgFOc-7lM0hCL1htJZyJ6k&_nc_zt=23&_nc_ht=scontent.fkhi4-3.fna&oh=00_AfCrK8pdmWGoUXgVZ9svwCRl8r_koUJOgFx21oIKR97d9w&oe=655AC81F" />
+            <Image src={channel.img} />
             <ChannelDetail>
-              <ChannelName>TechTube</ChannelName>
-              <ChannelCounter>3.34m Subscribers</ChannelCounter>
+              <ChannelName> {channel.name} </ChannelName>
+              <ChannelCounter> {channel.subscribers} </ChannelCounter>
               <Description>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Laboriosam iusto recusandae, et voluptas unde amet excepturi,
-                possimus corporis sunt commodi, incidunt culpa eius.
-                Repudiandae, iste.
+               {/* {currentVideo.description} */}
               </Description>
             </ChannelDetail>
           </ChannelInfo>

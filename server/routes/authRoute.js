@@ -18,7 +18,9 @@ authRouter.post('/register' ,  register)
 // localhost:8000/auth/login
 authRouter.post('/login' , login)
 
-// authRouter.post('/google' , google)
+
+
+// google authentication
 authRouter.post('/google' , googleAuth)
 
 
