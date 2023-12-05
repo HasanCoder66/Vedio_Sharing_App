@@ -76,11 +76,9 @@ const Avatar = styled.img`
 
 function Navbar() {
   const {currentUser} = useSelector(state => state.user)
+
   console.log(currentUser)
   return (
-
-
- 
     <Container>
         <Wrapper>
             <Search>
@@ -90,7 +88,7 @@ function Navbar() {
             {currentUser ? <User>
               <VideoCallOutlinedIcon />
               <Avatar />
-              {current.User.name}
+              {currentUser.name}
             </User> 
             : <Link to='/signin' style={{textDecoration: 'none'}} >
             <Button>
@@ -104,22 +102,25 @@ function Navbar() {
 }
 
 export default Navbar
-    // <Container>
-    //     <Wrapper>
-    //         <Search>
-    //             <Input placeholder='Search any data '/>
-    //             <SearchIcon  />
-    //         </Search>
-    //         {currentUser ? <Link to='/signin' style={{textDecoration: 'none'}} >
-    //         <Button>
-    //           <AccountCircleOutlinedIcon />
-    //           SIGN IN
-    //         </Button>
-    //         </Link>
-    //         : <User>
-    //         <VideoCallOutlinedIcon />
-    //         <Avatar />
-    //         {current.User.name}
-    //         </User>}
-    //     </Wrapper>
-    // </Container>
+
+
+
+// {/* <Container>
+//         <Wrapper>
+//             <Search>
+//                 <Input placeholder='Search any data '/>
+//                 <SearchIcon  />
+//             </Search>
+//             {currentUser ? <Link to='/signin' style={{textDecoration: 'none'}} >
+//             <Button>
+//               <AccountCircleOutlinedIcon />
+//               SIGN IN
+//             </Button>
+//             </Link>
+//             : <User>
+//             <VideoCallOutlinedIcon />
+//             <Avatar />
+//     //         {/* {current.User.name} */}
+//     //         </User>}
+//     //     </Wrapper>
+//     // </Container> */}

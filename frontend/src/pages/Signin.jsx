@@ -78,7 +78,7 @@ function Signin() {
     try {
       const res = await axios.post("/auth/login", { name, password });
       console.log(res.data);
-      dispatch(loginSuccess())
+      dispatch(loginSuccess(res.data))
     } catch (error) {
       dispatch(loginFailure())
       // console.log(error);
