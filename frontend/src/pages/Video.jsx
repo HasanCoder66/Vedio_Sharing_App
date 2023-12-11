@@ -4,14 +4,19 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 // import { ThumbUpOffAltOutlined } from "@mui/icons-material";
 import Comments from "../components/Comments";
-import Card from '../components/Card'
+import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import {fetchSuccess , fetchStart , fetchFailure} from '../components/redux/videoSlices'
-import {format} from 'timeago.js'
+import {
+  fetchSuccess,
+  fetchStart,
+  fetchFailure,
+} from "../components/redux/videoSlices";
+import { format } from "timeago.js";
 
 const Container = styled.div`
   display: flex;
@@ -111,21 +116,25 @@ const Subscribe = styled.button`
 `;
 
 const Video = () => {
-
-  const [channel, setChannel] = useState({});  
+  const [channel, setChannel] = useState({});
 
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
 
-  console.log(currentUser)
-  console.log(currentVideo)
+  // console.log(currentUser)
+  // console.log(currentVideo)
 
   const dispatch = useDispatch();
 
-  const path = useLocation().pathname.split('/')[2]
+  const path = useLocation().pathname.split("/")[2];
   // console.log(path)
 
-
+  const handlelike = async () => {
+    await axios.put(`/user/like/${currentVideo._id}`);
+  };
+  const handleDislike = async () => {
+    await axios.put(`/user/dislike/${currentVideo._id}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -134,8 +143,8 @@ const Video = () => {
           `/user/find/${videoRes.data.userId}`
         );
 
-        console.log(videoRes)
-        console.log(channelRes)
+        // console.log(videoRes.data)
+        // console.log(channelRes)
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
       } catch (err) {}
@@ -146,27 +155,38 @@ const Video = () => {
     <Container>
       <Content>
         <VideoWrapper>
-          {/* <iframe
+          <iframe
             width="100%"
             height="520"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
+            src="https://www.youtube.com/embed/CCF-xV3RSSs?si=wRnoe3uXKDIbv2Mv"
             title="YouTube video player"
             frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-          ></iframe> */}
-          <iframe width="100%" height="520" src="https://www.youtube.com/embed/CCF-xV3RSSs?si=wRnoe3uXKDIbv2Mv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          ></iframe>
         </VideoWrapper>
-        {/* <Title> { currentVideo.title || 'hasan'} </Title> */}
+        <Title> {currentVideo.title} </Title>
         <Details>
-          {/* <Info> {currentVideo.views || '1100 views'} ||  {format(currentVideo.createdAt)}  </Info> */}
+          <Info>
+            {" "}
+            {currentVideo.views} {format(currentVideo.createdAt)}{" "}
+          </Info>
           <Buttons>
-            <Button>
-              <ThumbUpOutlinedIcon />
-              {/* {currentVideo.likes?.length || 112} */}
+            <Button onClick={handlelike}>
+              {currentVideo.likes?.includes(currentUser._id) ? (
+                <ThumbUpIcon />
+              ) : (
+                <ThumbUpOutlinedIcon />
+              )}
+              {""}
+              {currentVideo.likes?.length}
             </Button>
-            <Button>
-              <ThumbDownOffAltOutlinedIcon />
+            <Button onClick={handleDislike}>
+              {currentVideo.dislike?.includes(currentUser._id) ? (
+                <ThumbUpIcon />
+              ) : (
+                <ThumbDownOffAltOutlinedIcon />
+              )}
               Dislike
             </Button>
             <Button>
@@ -186,15 +206,13 @@ const Video = () => {
             <ChannelDetail>
               <ChannelName> {channel.name} </ChannelName>
               <ChannelCounter> {channel.subscribers} </ChannelCounter>
-              <Description>
-               {currentVideo.desc}
-              </Description>
+              <Description>{/* {currentVideo.desc} */}</Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>Subscribe</Subscribe>
         </Channel>
-        <Hr/>
-        <Comments/>
+        <Hr />
+        <Comments />
       </Content>
       {/* <Recommendation>
         <Card type='sm'/>
@@ -210,6 +228,6 @@ const Video = () => {
       </Recommendation> */}
     </Container>
   );
-}
+};
 
 export default Video;
