@@ -122,7 +122,7 @@ const Video = () => {
   const { currentVideo } = useSelector((state) => state.video);
 
   // console.log(currentUser)
-  // console.log(currentVideo)
+  console.log(currentVideo)
 
   const dispatch = useDispatch();
 
@@ -165,24 +165,24 @@ const Video = () => {
             allowfullscreen
           ></iframe>
         </VideoWrapper>
-        <Title> {currentVideo.title} </Title>
+        <Title> {currentVideo?.title} </Title>
         <Details>
           <Info>
             {" "}
-            {currentVideo.views} {format(currentVideo.createdAt)}{" "}
+            {currentVideo?.views} {format(currentVideo?.createdAt)}{" "}
           </Info>
           <Buttons>
             <Button onClick={handlelike}>
-              {currentVideo.likes?.includes(currentUser._id) ? (
+              {currentVideo?.likes?.includes(currentUser._id) ? (
                 <ThumbUpIcon />
               ) : (
                 <ThumbUpOutlinedIcon />
               )}
               {""}
-              {currentVideo.likes?.length}
+              {currentVideo?.likes?.length}
             </Button>
             <Button onClick={handleDislike}>
-              {currentVideo.dislike?.includes(currentUser._id) ? (
+              {currentVideo?.dislike?.includes(currentUser._id) ? (
                 <ThumbUpIcon />
               ) : (
                 <ThumbDownOffAltOutlinedIcon />
@@ -202,11 +202,11 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src={channel.img} />
+            <Image src={channel?.img} />
             <ChannelDetail>
-              <ChannelName> {channel.name} </ChannelName>
-              <ChannelCounter> {channel.subscribers} </ChannelCounter>
-              <Description>{/* {currentVideo.desc} */}</Description>
+              <ChannelName> {channel?.name} </ChannelName>
+              <ChannelCounter> {channel?.subscribers} </ChannelCounter>
+              <Description>{currentVideo?.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>Subscribe</Subscribe>
