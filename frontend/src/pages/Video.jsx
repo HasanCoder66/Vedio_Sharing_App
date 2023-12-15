@@ -15,6 +15,8 @@ import {
   fetchSuccess,
   fetchStart,
   fetchFailure,
+  likes,
+  dislikes,
 } from "../components/redux/videoSlices";
 import { format } from "timeago.js";
 
@@ -129,12 +131,23 @@ const Video = () => {
   const path = useLocation().pathname.split("/")[2];
   // console.log(path)
 
+
   const handlelike = async () => {
-    await axios.put(`/user/like/${currentVideo._id}`);
+   const res = await axios.put(`/user/like/${currentVideo._id}`).then((result)=> {
+    console.log(result)
+   }).catch((error)=> {
+    console.log(error)
+   })
+    dispatch(likes(currentUser._id))
   };
+
   const handleDislike = async () => {
     await axios.put(`/user/dislike/${currentVideo._id}`);
+    console.log(currentUser._id , "user ki id ha i maha pan kai sath")
+    dispatch(dislikes(currentUser._id))
   };
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -172,8 +185,10 @@ const Video = () => {
             {currentVideo?.views} {format(currentVideo?.createdAt)}{" "}
           </Info>
           <Buttons>
-            <Button onClick={handlelike}>
-              {currentVideo?.likes?.includes(currentUser._id) ? (
+            <Button 
+            onClick={handlelike}
+            >
+              {currentVideo?.likes?.includes(currentUser?._id) ? (
                 <ThumbUpIcon />
               ) : (
                 <ThumbUpOutlinedIcon />
@@ -181,7 +196,9 @@ const Video = () => {
               {""}
               {currentVideo?.likes?.length}
             </Button>
-            <Button onClick={handleDislike}>
+            <Button
+             onClick={handleDislike}
+             >
               {currentVideo?.dislike?.includes(currentUser._id) ? (
                 <ThumbUpIcon />
               ) : (

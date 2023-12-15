@@ -25,7 +25,7 @@ export const videoSlice = createSlice({
     },
 
     like : (state , action) => {
-      if(!state.currentVideo.likes.includes(action.payload)){
+      if (!state.currentVideo.likes.includes(action.payload)){
         state.currentVideo.likes.push(action.payload);
         state.currentVideo.dislike.splice(
           state.currentVideo.dislikes.findIndex(
