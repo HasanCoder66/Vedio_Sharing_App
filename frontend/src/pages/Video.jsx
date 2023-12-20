@@ -133,17 +133,21 @@ const Video = () => {
 
 
   const handlelike = async () => {
-   const res = await axios.put(`/user/like/${currentVideo._id}`).then((result)=> {
-    console.log(result)
-   }).catch((error)=> {
-    console.log(error)
-   })
-    dispatch(likes(currentUser._id))
-  };
-
-  const handleDislike = async () => {
-    await axios.put(`/user/dislike/${currentVideo._id}`);
-    console.log(currentUser._id , "user ki id ha i maha pan kai sath")
+  //  const res = 
+   const rea = await axios.put(`/user/like/${currentVideo._id}`)
+   console.log(rea)
+   //  .then((result)=> {
+     // console.log(result)
+     //  }).catch((error)=> {
+       // console.log(error)
+       //  })
+       dispatch(likes(currentUser._id))
+      };
+      
+      const handleDislike = async () => {
+      const rea =  await axios.put(`/user/dislike/${currentVideo._id}`);
+        // console.log(currentUser._id , "user ki id ha i maha pan kai sath")
+        console.log(rea)
     dispatch(dislikes(currentUser._id))
   };
 
