@@ -151,7 +151,11 @@ const Video = () => {
     dispatch(dislikes(currentUser._id))
   };
 
-
+const handleSub = async () =>{
+  state.currentUser.subscribedUsers.includes(channel._id) ? 
+  axios.put(`/users/unsub/${channel._id}`) :
+  axios.put(`/users/sub/${channel._id}`)
+}
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -230,7 +234,7 @@ const Video = () => {
               <Description>{currentVideo?.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>Subscribe</Subscribe>
+          <Subscribe onClick= {handleSub}> {currentUser.subscribedUsers?.includes(channel._id) ? 'SUBSCRIBED' : 'Subscribe' } </Subscribe>
         </Channel>
         <Hr />
         <Comments />
