@@ -7,18 +7,19 @@ import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 // import { ThumbUpOffAltOutlined } from "@mui/icons-material";
 import Comments from "../components/Comments";
-import Card from "../components/Card";
+// import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import {
   fetchSuccess,
-  fetchStart,
-  fetchFailure,
+  // fetchStart,
+  // fetchFailure,
   likes,
   dislikes,
 } from "../components/redux/videoSlices";
 import { format } from "timeago.js";
+import { subscription } from "../components/redux/userSlices";
 
 const Container = styled.div`
   display: flex;
@@ -152,9 +153,10 @@ const Video = () => {
   };
 
 const handleSub = async () =>{
-  state.currentUser.subscribedUsers.includes(channel._id) ? 
-  axios.put(`/users/unsub/${channel._id}`) :
-  axios.put(`/users/sub/${channel._id}`)
+  currentUser.subscribedUsers.includes(channel._id) ? 
+  await axios.put(`/users/unsub/${channel._id}`) :
+  await axios.put(`/users/sub/${channel._id}`)
+  dispatch(subscription(channel._id))
 }
   useEffect(() => {
     const fetchData = async () => {
